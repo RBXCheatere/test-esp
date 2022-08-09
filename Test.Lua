@@ -687,7 +687,7 @@ end
     for i,v in next, players:GetPlayers() do
         esp:AddPlayer(v);
     end
-end
+
 
 
 return esp;
