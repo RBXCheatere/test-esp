@@ -35,7 +35,7 @@ local esp = {
            };
      HealthESP     = {   ['Health']   = {Position = 'left', Enabled = false, IgnoreTarget = true, Default = 'NaN', Color = Color3.new(1,1,1), Transparency = 0};
     };
-    barlayout      = {
+    HealthBAR      = {
         ['Health']   = {Position = 'left', Enabled = false, Color1 = Color3.new(1,0,0), Color2 = Color3.new(0,1,0), Transparency = 0};
     };
 }
@@ -118,7 +118,7 @@ function esp:AddPlayer(plr)
  for i,v in next, self.HealthESP do
         data.text[i] = {NewDrawing('Text', {ZIndex = 1}), NewDrawing('Text', {ZIndex = 1}), order = v.Order or 0}
     end
-    for i,v in next, self.barlayout  do
+    for i,v in next, self.HealthBAR  do
         data.bar[i] = {NewDrawing('Square', {Filled = true}), NewDrawing('Square', {Filled = true}), order = v.Order or 0};
     end
     for i = 1,8 do
@@ -142,7 +142,7 @@ function esp:AddPlayer(plr)
         return a.order > b.order
  end)
 
-    table.sort(self.barlayout, function(a,b)
+    table.sort(self.HealthBAR, function(a,b)
         return a.order > b.order
     end)
 
@@ -202,10 +202,10 @@ function esp.GetPlayerOptionInfo(player, playerdata)
         ['Name'] = {text = esp.displayname and player.DisplayName or player.Name};
         ['Distance'] = {text = floor(esp.GetDistance(playerdata.cframe.p, workspace.CurrentCamera.CFrame.p))};
         ['Tool'] = {text = ''};
-        ['Health'] = {text = floor(playerdata.health), color = esp.barlayout.Health.Color1:Lerp(esp.barlayout.Health.Color2, playerdata.health / playerdata.maxhealth)};
+        ['Health'] = {text = floor(playerdata.health), color = esp.HealthBAR.Health.Color1:Lerp(esp.HealthBAR.Health.Color2, playerdata.health / playerdata.maxhealth)};
     },
     {
-        ['Health'] = {value = playerdata.health, min = 0, max = playerdata.maxhealth, color = esp.barlayout.Health.Color1:Lerp(esp.barlayout.Health.Color2, playerdata.health / playerdata.maxhealth)};
+        ['Health'] = {value = playerdata.health, min = 0, max = playerdata.maxhealth, color = esp.HealthBAR.Health.Color1:Lerp(esp.HealthBAR.Health.Color2, playerdata.health / playerdata.maxhealth)};
     }
 end
 
@@ -457,7 +457,7 @@ end
                 drawings.snapline.Transparency = min(color == nil and esp.snapline[3] or esp.snapline[4], transparency);
             end
 
-            for name, default in next, esp.barlayout do
+            for name, default in next, esp.HealthBAR do
                 local drawing = drawings.bar[name];
                 local barinfo = barinfo[name]
                 if drawing ~= nil and barinfo ~= nil then
