@@ -1,13 +1,3 @@
-local chars_upvalue = getupvalue(getrenv()._G.Player.GetPlayerModel, 1)
-
-local __index; __index = hookmetamethod(game, "__index", function(self, prop)
-    if self:IsA("Player") and prop == "Character" then
-        if chars_upvalue[self.UserId] ~= nil then
-            return chars_upvalue[self.UserId].model
-        end;
-    end
-    return __index(self, prop)
-end)
 
 local esp = {
     enabled        = false;
